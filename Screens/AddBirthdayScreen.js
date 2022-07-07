@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import sendItems from './../Functions/sendItems';
 
 export default function AddBirthdayScreen(){
+  const pp = {}
 
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
