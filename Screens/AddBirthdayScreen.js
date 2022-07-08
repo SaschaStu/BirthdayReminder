@@ -4,7 +4,6 @@ import React, {useState} from 'react';
 import sendItems from './../Functions/sendItems';
 
 export default function AddBirthdayScreen(){
-  const pp = {}
 
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -14,15 +13,23 @@ export default function AddBirthdayScreen(){
     {label: 'work', value:'work'},
     {label: 'other', value: 'other'}
   ]);
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+  const [category, setCategory] = useState('');
+
+  function handlePress(){
+    sendItems({name: name, date: date, category: category});
+    setOpen(false);
+  }
 
     return(
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Name:</Text>
-            <TextInput placeholder='Name'></TextInput>
+            <TextInput placeholder='Name' onChangeText={(text) =>{setName(text)}}></TextInput>
             <Text>Birthday:</Text>
-            <TextInput placeholder='YYYY-MM-DD'></TextInput>
-            <DropDownPicker open={open} value={value} items={items} setOpen={setOpen} setValue={setValue} setItems={setItems}/>
-            <Button onPress={sendItems} title="Confirm"></Button>
+            <TextInput placeholder='YYYY-MM-DD' onChangeText={(text) => {setDate(text)}}></TextInput>
+            <DropDownPicker open={open} value={value} items={items} setOpen={setOpen} setValue={setValue} setItems={setItems} onChangeValue={(value) => {setCategory(value)}}/>
+            <Button onPress={handlePress} title="Confirm"></Button>
         </View>
     )
 }
