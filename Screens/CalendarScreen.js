@@ -2,6 +2,30 @@ import { View} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {LocaleConfig} from 'react-native-calendars';
 import React from 'react';
+import {getData, getAllKeys }from './../Functions/sendItems';
+
+let datesArray=[];
+
+const friends = {key: 'green', color: 'green'};
+const family = {key: 'red', color: 'red'};
+const work = {key: 'blue', color: 'blue'};
+const other = {key: 'gray',color:'gray'};
+const pp = {'2022-07-09':{dots: [friends]}};
+const pp2 = {'2022-07-08':{dots: [friends, family]}};
+datesArray.push(pp);
+datesArray.push(pp2);
+
+
+
+function getBirthdays(){
+    
+    datesArray.push();
+    console.log(datesArray);
+    console.log(Object.assign({}, datesArray));
+    return Object.assign({}, datesArray);
+}
+
+
 LocaleConfig.locales['de'] = {
     monthNames: [
       'Januar',
@@ -27,20 +51,13 @@ LocaleConfig.locales['de'] = {
 export default function CalendarScreen() {
 
 
-    const friends = {key: 'friends', color: 'green'};
-    const family = {key: 'family', color: 'red'};
-    const work = {key: 'work', color: 'blue'};
-    const other = {key: 'other',color:'gray'};
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightgray' }}>
 
             <Calendar
 
                 markingType={'multi-dot'}
-                markedDates={{
-                    '2022-07-07': {dots: [friends, family, work, other]},
-                    '2022-07-08': {dots: [family, work]}
-                }}
+                markedDates={datesArray[0]}
             hideExtraDays={true}
             showWeekNumbers={true}
             enableSwipeMonths={true}

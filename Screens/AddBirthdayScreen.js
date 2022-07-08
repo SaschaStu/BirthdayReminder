@@ -8,10 +8,10 @@ export default function AddBirthdayScreen(){
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'friends', value: 'friends'},
-    {label: 'familky', value: 'familky'},
-    {label: 'work', value:'work'},
-    {label: 'other', value: 'other'}
+    {label: 'friends', value: 'green'},
+    {label: 'family', value: 'red'},
+    {label: 'work', value:'blue'},
+    {label: 'other', value: 'gray'}
   ]);
   const [name, setName] = useState('');
   const [date, setDate] = useState('');

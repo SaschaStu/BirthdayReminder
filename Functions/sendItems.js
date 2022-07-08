@@ -1,8 +1,5 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const iuts = {name: 'Sebastian', date: '2022-07-07', category:'work'};
-const iutms = {name: 'Hans', date: '2022-07-29', category:'family'};
 let keyArray = [];
 
 const pattern = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
@@ -33,20 +30,23 @@ const storeData = async (value, key) => {
     
 }
 
-const getAllKeys = async () => {
+const getAllKeys = async ()=> {
     let keys = []
     try {
       keys = await AsyncStorage.getAllKeys()
     } catch(e) {
       // read key error
       console.log(e+'getAllKeys Error');
+    } finally {
+      keyArray = keys;
     }
-    keyArray = keys;
-    //console.log(keys);
   }
+
+
 
   function getNewKey(){
     const key = '@MyApp_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
     getAllKeys();
     while(keyArray.includes(key)){
       getNewKey();
@@ -69,8 +69,7 @@ const getAllKeys = async () => {
   }
 
   const removeAll = async () => {
-    getAllKeys();
-    const keys = keyArray;
+    const keys = getAllKeys;
     try {
       await AsyncStorage.multiRemove(keys)
     } catch(e) {
@@ -79,6 +78,7 @@ const getAllKeys = async () => {
   
     console.log('Done')
   }
+
   
 
 export default function sendItems(object){
@@ -87,9 +87,8 @@ export default function sendItems(object){
     storeData(object, getNewKey());
   }
 
+  getAllKeys();
+  console.log(keyArray.length);
     
-      return(
-        console.log('pp')
-      )
   };
 
